@@ -8,5 +8,11 @@ pipeline {
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
+        stage('deploy to Prod') {
+            steps {
+                echo ' Deploying to Prod '
+            
+            }
+        }
     }
 }
