@@ -8,9 +8,19 @@ pipeline {
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
-        stage('deploy to Prod') {
+        stage('Building docker image') {
+            when {
+              branch 'master'
+            }
             steps {
-                echo ' Deploying to Prod '
+                echo 'Building docker image'
+                script{
+                     app = docker.build("ayoubely/train-schedule")
+                     app.inside {
+                      sh 'echo $(curl localhost:8080)'
+                }
+               
+                }
             
             }
         }
