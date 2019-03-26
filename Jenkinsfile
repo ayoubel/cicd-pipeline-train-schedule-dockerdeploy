@@ -24,5 +24,18 @@ pipeline {
             
             }
         }
+        stage('Push Docker image') {
+            when {
+                bransh 'master'
+            }
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com','dockerhub-credentials'){
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push('latest')
+                    }
+                }
+            }
+        }
     }
 }
