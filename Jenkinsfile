@@ -44,7 +44,7 @@ pipeline {
             steps {
                 input 'Deploy to Staging?'
                 milestone(1)
-                withCredentials([usernamePassword(credentialsId: 'cred-staging', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'staging-credentials', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                     script {
                         sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$staging_ip \"docker pull ayoubely/train-schedule:${env.BUILD_NUMBER}\""
                         try {
